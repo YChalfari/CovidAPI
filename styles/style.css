@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: monospace;
+  font-size: 10px;
+  height: 100vh;
+}
+.main-container {
+  width: 90%;
+  height: 70%;
+}
+aside {
+  width: 25%;
+  height: 100%;
+}
+.buttons {
+  width: 90%;
+}
+.graph-container {
+  width: 75%;
+  height: 100%;
+}
+.error-container {
+  height: 40px;
+  width: 60%;
+}
+.country-content {
+  width: 90%;
+}

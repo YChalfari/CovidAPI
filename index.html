@@ -5,20 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Covid-19 Stat search</title>
+    <link rel="stylesheet" href="./styles/utilities.css" />
     <link rel="stylesheet" href="./styles/style.css" />
   </head>
   <body>
-    <div class="main-container">
+    <div class="main-container flex-row center-self">
+      <aside class="flex-col flex-center">
+        <div class="buttons flex-col flex-center">
+          <div class="continent-select-wrap">
+            <select
+              name="continents"
+              id="continents"
+              class="dropdown cont-drop"
+            ></select>
+          </div>
+          <div class="country-select-wrap"></div>
+          <div class="chart-type-select"></div>
+          <div class="chart-type-preview"></div>
+        </div>
+      </aside>
       <div class="graph-container"></div>
-      <div class="county-content">
-        <select name="" id="" class="country-select"></select>
-        <div class="country-stats"></div>
-      </div>
+    </div>
+    <div class="error-container center-self"></div>
+    <div class="county-content">
+      <div class="country-stats"></div>
       <div class="country-graph"></div>
     </div>
-    <aside>
-      <div class="continent-buttons"></div>
-    </aside>
+
     <script src="./scripts/script.js"></script>
   </body>
 </html>
