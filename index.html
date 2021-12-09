@@ -24,14 +24,16 @@
           <div class="chart-type-preview"></div>
         </div>
       </aside>
-      <div class="graph-container"></div>
+      <div class="graph-container">
+        <canvas id="continent-graph"></canvas>
+      </div>
     </div>
     <div class="error-container center-self"></div>
     <div class="county-content">
       <div class="country-stats"></div>
       <div class="country-graph"></div>
     </div>
-
-    <script src="./scripts/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3"></script>
+    <script src="./scripts/script.js" type="module"></script>
   </body>
 </html>
