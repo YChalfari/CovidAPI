@@ -2,7 +2,7 @@ export const continentGraph = document
   .getElementById("continent-graph")
   .getContext("2d");
 export const contChartObj = new Chart(continentGraph, {
-  type: "bar",
+  type: "line",
   data: {
     labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
     datasets: [

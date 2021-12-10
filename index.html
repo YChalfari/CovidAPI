@@ -9,15 +9,40 @@
     <link rel="stylesheet" href="./styles/style.css" />
   </head>
   <body>
-    <div class="main-container flex-row center-self">
-      <aside class="flex-col flex-center">
-        <div class="buttons flex-col flex-center">
-          <div class="continent-select-wrap">
+    <div class="main-container flex-col center-self">
+      <aside class="flex-row flex-center">
+        <div class="buttons flex-row flex-center">
+          <div class="select-wrap">
             <select
               name="continents"
               id="continents"
               class="dropdown cont-drop"
-            ></select>
+            >
+              <option value="" disabled selected hidden>
+                Choose Continent...
+              </option>
+              <option value="asia">Asia</option>
+              <option value="europe">Europe</option>
+              <option value="americas">Americas</option>
+              <option value="oceania">Oceania</option>
+              <option value="antarctica">Antarctica</option>
+            </select>
+          </div>
+          <div class="select-wrap">
+            <select
+              name="subregions"
+              id="subregions"
+              class="dropdown region-drop"
+            >
+              <option value="northern america">North America</option>
+              <option value="southern america">South America</option>
+              <option value="northern asia"></option>
+              <option value="southern asia"></option>
+              <option value="northern europe"></option>
+              <option value="southern europe"></option>
+              <option value="western europe"></option>
+              <option value="eastern europe"></option>
+            </select>
           </div>
           <div class="country-select-wrap"></div>
           <div class="chart-type-select"></div>
