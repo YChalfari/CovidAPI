@@ -25,3 +25,7 @@
   text-align: center;
   padding: 5px;
 }
+.fill {
+  height: 100%;
+  width: 100%;
+}

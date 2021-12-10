@@ -1,42 +1,45 @@
-import { continentGraph, contChartObj } from "./chart.js";
+import {
+  continentGraph,
+  // mainChart,
+  countryChartObj,
+  countryGraph,
+  chartLabels,
+  drawChart,
+} from "./chart.js";
+//LINKS
 const PROXY_URL = "https://intense-mesa-62220.herokuapp.com/";
 const CONT_URL = "https://restcountries.herokuapp.com/api/v1/region/";
 const REGION_URL = "https://restcountries.herokuapp.com/api/v1/subregion/";
 const COVID_URL = "http://corona-api.com/countries/";
+//Select options
 const continentSelect = document.querySelector("#continents");
 const subregionSelect = document.querySelector("#subregions");
 const countrySelect = document.querySelector("#countries");
-const subregionOptions = document.querySelector("#subregions").childNodes;
-// const countrySelect = document.querySelector();
-// const countryGraph = document.querySelector();
+
 const errorDiv = document.querySelector(".error-container");
-const continents = {
-  // asia: {},
-  // europe: {},
-  // americas: {},
-  // oceania: {},
-  // antarctica: {},
-};
-const previouslySelected = [];
+
+const continents = {};
+const countryData = {};
 const countryCodes = [];
-const selectState = {};
-const main = (e) => {};
+
 //Event handler - Continents
 continentSelect.addEventListener("change", (e) => {
   const value = e.currentTarget.value;
+  chartLabels.mainLabel = value;
   fetchCountriesInCont(value);
 });
 //Event handler - Sub-regions
 subregionSelect.addEventListener("change", (e) => {
   // main(e);
   const value = e.currentTarget.value;
+
   console.log(value);
   // drawGraph();
 });
 //Event handler - Countries
 countrySelect.addEventListener("change", (e) => {
   const value = e.currentTarget.value;
-  console.log(value);
+
   // drawCountryGraph()
 });
 async function fetchCountriesInCont(continent) {
@@ -50,62 +53,53 @@ async function fetchCountriesInCont(continent) {
         throw Error(`${countriesJson.status}`);
       }
       const parsedCountries = await countriesJson.json();
-      // console.log(parsedCountries);
-      saveCodes(continent, parsedCountries);
-      fetchCountry(continent, countryCodes);
-      // previouslySelected.push(continent);
-      // console.log(previouslySelected);
-    } catch (e) {
-      errorMessage(`Oops, Something went wrong. Server Message: ${e.message}`);
-    }
-  }
-  // Fetch by sub-region
-  async function fetchCountriesInSubRegion(subregion) {
-    try {
-      const regionJson = await fetch(`${PROXY_URL}${REGION_URL}${subregion}`);
-      if (!regionJson.ok) {
-        throw Error(`${regionJson.status}`);
-      }
-      const parsedCountries = await regionJson.json();
-      console.log(parsedCountries);
-      saveCodes(subregion, parsedCountries);
-      fetchCountry(subregion, countryCodes);
+
+      saveCountryData(continent, parsedCountries);
+      fetchCountry(countryData);
+      drawChart();
     } catch (e) {
       errorMessage(`Oops, Something went wrong. Server Message: ${e.message}`);
     }
   }
 }
 
-async function fetchCountry(continent, codes) {
-  codes.forEach(async (code) => {
+async function fetchCountry(countData) {
+  console.log(countData);
+  for (const key in countData) {
     try {
-      const covidJson = await fetch(`${PROXY_URL}${COVID_URL}${code}`);
+      const covidJson = await fetch(`${PROXY_URL}${COVID_URL}${key}`);
       if (!covidJson.ok) {
         throw Error(`${covidJson.status}`);
       }
       const parsedCountries = await covidJson.json();
-      saveCountryData(continent, parsedCountries);
-      console.log(parsedCountries);
+      saveCountryStats(key, parsedCountries);
     } catch (e) {
       errorMessage(`Oops, Something went wrong. Server Message: ${e.message}`);
     }
-  });
+  }
+  console.log(continents);
 }
 //Save the country codes to fetch them individually
-function saveCodes(continent, countries) {
+function saveCountryData(continent, countries) {
   continents[continent] = {};
   countries.forEach((country) => {
     const { cca2, subregion, name } = country;
     const conti = continents[continent];
-    if ((conti[subregion] = conti[subregion])) {
+    //  ( = conti[subregion])
+    if (conti[subregion]) {
       conti[subregion].push({ cca2, name: name.common });
     } else {
       createSubRegion(subregion);
       conti[subregion] = [{ cca2, name: name.common }];
     }
 
-    createCountry(name.common);
+    if (cca2 !== "XK") {
+      countryData[cca2] = { name: name.common };
+    }
+
+    createCountryOption(name.common, cca2);
   });
+  console.log(countryData);
 }
 function createSubRegion(subRegion) {
   const option = document.createElement("option");
@@ -113,19 +107,20 @@ function createSubRegion(subRegion) {
   option.textContent = subRegion;
   subregionSelect.appendChild(option);
 }
-function createCountry(countName) {
+function createCountryOption(countName, countCode) {
   const option = document.createElement("option");
-  option.setAttribute("value", countName);
+  option.setAttribute("value", countCode);
   option.textContent = countName;
   countrySelect.appendChild(option);
 }
 
 //Save the covid stats to be displayed in chart & stats
-async function saveCountryData(continent, obj) {
+function saveCountryStats(key, obj) {
   const data = obj.data;
   const latest = data.latest_data;
   const { confirmed, critical, recovered, deaths, calculated } = latest;
   const { death_rate, recovery_rate } = calculated;
+
   const shortenedObj = {
     confirmed,
     critical,
@@ -134,22 +129,20 @@ async function saveCountryData(continent, obj) {
     death_rate,
     recovery_rate,
   };
-  continents[continent][data.name] = shortenedObj;
+  countryData[key].stats = shortenedObj;
+  console.log(countryData);
+  chartLabels.xlabels.push(confirmed);
+  chartLabels.ylabels.push(data.name);
+
+  drawChart();
 }
 //Error message display function
 function errorMessage(e) {
   errorDiv.textContent = e;
 }
-// function saveData(continent, countries) {
-//   countries.forEach((country) => {
-//     const { name: countryName, cca2 } = country;
-//     continents[continent][countryName.common] = { code: cca2 };
-//     console.log(continents);
-//   });
-// }
-function updateChart(countriesObj) {}
-function isPending(params) {}
-function disableButton(params) {}
-function calcPercentage() {}
-function showPercentage(params) {}
-function drawGraph(params) {}
+
+function drawGraph(main, x, y) {
+  chartLabels.mainLabel = main;
+  chartLabels.x = x;
+  chartLabels.y = y;
+}

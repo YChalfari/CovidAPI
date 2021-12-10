@@ -1,29 +1,69 @@
+// import { chartLabels } from "./script.js";
 export const continentGraph = document
   .getElementById("continent-graph")
   .getContext("2d");
-export const contChartObj = new Chart(continentGraph, {
-  type: "line",
+export const countryGraph = document
+  .getElementById("country-graph")
+  .getContext("2d");
+export const chartLabels = {
+  mainLabel: "",
+  xlabels: [],
+  ylabels: [],
+};
+let mainChart = null;
+export function drawChart(main, x, y) {
+  if (mainChart) {
+    mainChart.destroy();
+  }
+  mainChart = new Chart(continentGraph, {
+    type: "bar",
+    data: {
+      labels: chartLabels.ylabels,
+      datasets: [
+        {
+          label: chartLabels.mainLabel,
+          data: chartLabels.xlabels,
+          backgroundColor: [
+            "rgba(255, 99, 132, 0.2)",
+            "rgba(54, 162, 235, 0.2)",
+            "rgba(255, 206, 86, 0.2)",
+          ],
+          borderColor: [
+            "rgba(255, 99, 132, 1)",
+            "rgba(54, 162, 235, 1)",
+            "rgba(255, 206, 86, 1)",
+          ],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+}
+
+export const countryChartObj = new Chart(countryGraph, {
+  type: "bar",
   data: {
-    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+    labels: [],
     datasets: [
       {
-        label: "# of Votes",
-        data: [12, 19, 3, 5, 2, 3],
+        label: "",
+        data: [],
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
           "rgba(54, 162, 235, 0.2)",
           "rgba(255, 206, 86, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(153, 102, 255, 0.2)",
-          "rgba(255, 159, 64, 0.2)",
         ],
         borderColor: [
           "rgba(255, 99, 132, 1)",
           "rgba(54, 162, 235, 1)",
           "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(153, 102, 255, 1)",
-          "rgba(255, 159, 64, 1)",
         ],
         borderWidth: 1,
       },
