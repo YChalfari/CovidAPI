@@ -34,19 +34,22 @@
               id="subregions"
               class="dropdown region-drop"
             >
-              <option value="northern america">North America</option>
-              <option value="southern america">South America</option>
-              <option value="northern asia"></option>
-              <option value="southern asia"></option>
-              <option value="northern europe"></option>
-              <option value="southern europe"></option>
-              <option value="western europe"></option>
-              <option value="eastern europe"></option>
+              <option value="" disabled selected hidden>
+                Choose Region...
+              </option>
             </select>
           </div>
-          <div class="country-select-wrap"></div>
-          <div class="chart-type-select"></div>
-          <div class="chart-type-preview"></div>
+          <div class="select-wrap">
+            <select
+              name="countries"
+              id="countries"
+              class="dropdown country-drop"
+            >
+              <option value="" disabled selected hidden>
+                Choose Region...
+              </option>
+            </select>
+          </div>
         </div>
       </aside>
       <div class="graph-container">
@@ -56,7 +59,9 @@
     <div class="error-container center-self"></div>
     <div class="county-content">
       <div class="country-stats"></div>
-      <div class="country-graph"></div>
+      <div class="country-graph-wrap">
+        <canvas id="country-graph"></canvas>
+      </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3"></script>
     <script src="./scripts/script.js" type="module"></script>

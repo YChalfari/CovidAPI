@@ -11,7 +11,6 @@ body {
 }
 .main-container {
   width: 90%;
-  height: 50%;
 }
 aside {
   width: 100%;
@@ -45,4 +44,17 @@ aside {
 }
 .country-content {
   width: 90%;
+}
+
+@media (max-width: 400px) {
+  .buttons {
+    flex-direction: column;
+  }
+  aside {
+    margin: 15px 0;
+    height: max-content;
+  }
+  .select-wrap {
+    margin: 5px 0;
+  }
 }
