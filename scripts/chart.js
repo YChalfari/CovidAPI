@@ -1,4 +1,3 @@
-import { countryData } from "./script.js";
 export const continentGraph = document
   .getElementById("continent-graph")
   .getContext("2d");
@@ -47,12 +46,23 @@ export function clearChartData() {
   data.labels = [];
   data.datasets[0].data = [];
 }
+// export function updateChart(obj, type) {
+//   console.log(obj);
+//   for (const key in obj) {
+//     const { name } = obj[key];
+//     const { confirmed, critical, deaths, recovered } = obj[key].stats;
+//     const dataset = data.datasets[0];
+//     chartLabels.mainLabel = type;
+//     dataset.data.push(confirmed);
+//     data.labels.push(name);
+//   }
+//   console.log(dataset);
+// }
 export function updateChart(label, x, y) {
   const dataset = data.datasets[0];
   chartLabels.mainLabel = label;
   dataset.data.push(y);
   data.labels.push(x);
-  console.log(dataset);
 }
 export function drawChart() {
   randomColorGenerator(chartLabels.xlabels);
