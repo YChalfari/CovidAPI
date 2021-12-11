@@ -5,12 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Covid-19 Stat search</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="./styles/utilities.css" />
     <link rel="stylesheet" href="./styles/style.css" />
   </head>
   <body>
     <div class="main-container flex-col center-self">
-      <aside class="flex-row flex-center">
+      <aside class="flex-row flex-center center-self">
         <div class="buttons flex-row flex-center">
           <div class="select-wrap">
             <select
@@ -46,22 +53,49 @@
               class="dropdown country-drop"
             >
               <option value="" disabled selected hidden>
-                Choose Region...
+                Choose Country...
               </option>
             </select>
           </div>
         </div>
       </aside>
       <div class="graph-container">
-        <canvas id="continent-graph"></canvas>
+        <canvas id="continent-graph" height="200" width="400"></canvas>
       </div>
     </div>
     <div class="error-container center-self"></div>
     <div class="country-content flex-col flex-center center-self">
-      <div class="country-stats flex-row"></div>
-      <div class="country-graph-wrap fill">
-        <canvas id="country-graph"></canvas>
+      <div class="country-stats flex-row hidden">
+        <div class="stat-card flex-row">
+          <div class="icon-wrap"><i class="fas fa-virus"></i></div>
+          <div class="stat-content flex-col">
+            <p class="stat-title">CONFIRMED</p>
+            <h2 data-type='confirmed' class="stat-value">20,000</h2>
+          </div>
+        </div>
+        <div class="stat-card flex-row hidden">
+          <div class="icon-wrap"><i class="fas fa-skull-crossbones"></i></i></div>
+          <div class="stat-content flex-col">
+            <p class="stat-title">DEATHS</p>
+            <h2 data-type="deaths" class="stat-value">20,000</h2>
+          </div>
+        </div>
+        <div class="stat-card flex-row hidden">
+          <div class="icon-wrap"><i class="fas fa-procedures"></i></div>
+          <div class="stat-content flex-col">
+            <p class="stat-title">CRITICAL</p>
+            <h2 data-type="critical" class="stat-value">20,000</h2>
+          </div>
+        </div>
+        <div class="stat-card flex-row hidden">
+          <div class="icon-wrap"><i class="fas fa-running"></i></div>
+          <div class="stat-content flex-col">
+            <p class="stat-title">RECOVERED</p>
+            <h2 data-type="recovered" class="stat-value">20,000</h2>
+          </div>
+        </div>
       </div>
+      <canvas id="country-graph" height="200" width="400"></canvas>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3"></script>
     <script src="./scripts/script.js" type="module"></script>

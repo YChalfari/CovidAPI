@@ -1,10 +1,9 @@
 import {
-  continentGraph,
-  // mainChart,
-  countryChartObj,
-  countryGraph,
+  clearChartData,
   chartLabels,
   drawChart,
+  updateChart,
+  mainChart,
 } from "./chart.js";
 //LINKS
 const PROXY_URL = "https://intense-mesa-62220.herokuapp.com/";
@@ -15,32 +14,54 @@ const COVID_URL = "http://corona-api.com/countries/";
 const continentSelect = document.querySelector("#continents");
 const subregionSelect = document.querySelector("#subregions");
 const countrySelect = document.querySelector("#countries");
-
 const errorDiv = document.querySelector(".error-container");
 
 const continents = {};
-const countryData = {};
+export const countryData = {};
 const countryCodes = [];
 
 //Event handler - Continents
-continentSelect.addEventListener("change", (e) => {
+continentSelect.addEventListener("change", async (e) => {
   const value = e.currentTarget.value;
   chartLabels.mainLabel = value;
   fetchCountriesInCont(value);
 });
 //Event handler - Sub-regions
 subregionSelect.addEventListener("change", (e) => {
-  // main(e);
   const value = e.currentTarget.value;
+  clearChartData();
+  function getData(type) {
+    let curr;
+    for (const key in continents) {
+      if (continents[key].hasOwnProperty(type)) {
+        curr = continents[key][type];
+      }
+    }
 
-  console.log(value);
-  // drawGraph();
+    for (const key in countryData) {
+      curr.forEach((obj) => {
+        if (obj.cca2 === key) {
+          obj.stats = countryData[key].stats;
+
+          updateChart(
+            "confirmed",
+            countryData[key].name,
+            countryData[key].stats.confirmed
+          );
+        }
+      });
+    }
+  }
+
+  console.log(chartLabels);
+  getData(value);
+  drawChart();
 });
 //Event handler - Countries
 countrySelect.addEventListener("change", (e) => {
   const value = e.currentTarget.value;
-
-  // drawCountryGraph()
+  const stats = getStats(value);
+  printStats(stats);
 });
 async function fetchCountriesInCont(continent) {
   //check if we have already saved this data
@@ -56,7 +77,6 @@ async function fetchCountriesInCont(continent) {
 
       saveCountryData(continent, parsedCountries);
       fetchCountry(countryData);
-      drawChart();
     } catch (e) {
       errorMessage(`Oops, Something went wrong. Server Message: ${e.message}`);
     }
@@ -64,7 +84,6 @@ async function fetchCountriesInCont(continent) {
 }
 
 async function fetchCountry(countData) {
-  console.log(countData);
   for (const key in countData) {
     try {
       const covidJson = await fetch(`${PROXY_URL}${COVID_URL}${key}`);
@@ -73,6 +92,8 @@ async function fetchCountry(countData) {
       }
       const parsedCountries = await covidJson.json();
       saveCountryStats(key, parsedCountries);
+      console.log(countryData);
+      drawChart();
     } catch (e) {
       errorMessage(`Oops, Something went wrong. Server Message: ${e.message}`);
     }
@@ -85,7 +106,6 @@ function saveCountryData(continent, countries) {
   countries.forEach((country) => {
     const { cca2, subregion, name } = country;
     const conti = continents[continent];
-    //  ( = conti[subregion])
     if (conti[subregion]) {
       conti[subregion].push({ cca2, name: name.common });
     } else {
@@ -120,7 +140,6 @@ function saveCountryStats(key, obj) {
   const latest = data.latest_data;
   const { confirmed, critical, recovered, deaths, calculated } = latest;
   const { death_rate, recovery_rate } = calculated;
-
   const shortenedObj = {
     confirmed,
     critical,
@@ -130,19 +149,13 @@ function saveCountryStats(key, obj) {
     recovery_rate,
   };
   countryData[key].stats = shortenedObj;
-  console.log(countryData);
-  chartLabels.xlabels.push(confirmed);
-  chartLabels.ylabels.push(data.name);
-
-  drawChart();
+  updateChart("confirmed", data.name, confirmed);
 }
 //Error message display function
 function errorMessage(e) {
   errorDiv.textContent = e;
 }
 
-function drawGraph(main, x, y) {
-  chartLabels.mainLabel = main;
-  chartLabels.x = x;
-  chartLabels.y = y;
+function getStats(country) {
+  countryData;
 }

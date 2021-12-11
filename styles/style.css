@@ -13,28 +13,35 @@ body {
   width: 90%;
 }
 aside {
-  width: 100%;
+  width: 90%;
   height: 70px;
 }
 .buttons {
+  width: 90%;
   padding: 5px;
   justify-content: space-around;
 }
 .select-wrap {
-  margin: 0 15px;
+  margin: 0 25px;
+  background-color: rgb(212, 16, 16);
 }
 .dropdown {
+  font-weight: 600;
+  background: transparent;
+  border: none;
   width: 100%;
+  height: 70%;
+  padding: 5px;
+}
+option {
   padding: 5px;
 }
 .graph-container {
+  position: relative;
   width: 100%;
   height: 100%;
 }
-.continent-graph {
-  width: 100%;
-  height: 100%;
-}
+
 .error-container {
   height: 50px;
   width: 60%;
@@ -44,11 +51,34 @@ aside {
 }
 .country-content {
   width: 90%;
+  min-height: 300px;
 }
 .country-stats {
   width: 100%;
-  padding: 15px 0;
-  flex-wrap: wrap;
+}
+.stat-card {
+  width: 22%;
+  margin: 5px;
+}
+.icon-wrap {
+  margin-left: 5px;
+  padding: 5px;
+}
+.stat-card i {
+  /* text-align: end;
+  line-height: 100%; */
+  font-size: 5.5vmin;
+  color: rgb(196, 37, 37);
+}
+.stat-content {
+  padding: 5px;
+}
+.stat-content p {
+  font-size: 2vmin;
+  color: gray;
+}
+.stat-content h2 {
+  font-size: 4vmin;
 }
 
 @media (max-width: 400px) {
