@@ -17,6 +17,9 @@
   </head>
   <body>
     <div class="main-container flex-col center-self">
+      <div class="main-title">
+      <h1> <i class="fas fa-virus"></i>Covid-19 Dashboard</h1>
+    <p>Please choose a continent first</p></div>
       <aside class="flex-row flex-center center-self">
         <div class="buttons flex-row flex-center">
           <div class="select-wrap">
@@ -65,33 +68,33 @@
     </div>
     <div class="error-container center-self"></div>
     <div class="country-content flex-col flex-center center-self">
-      <div class="country-stats flex-row hidden">
-        <div class="stat-card flex-row">
-          <div class="icon-wrap"><i class="fas fa-virus"></i></div>
+      <div class="country-stats flex-row center-self">
+        <div data-type='confirmed' class="stat-card flex-row hidden">
+          <div class="icon-wrap  flex-row flex-center"><i class="fas fa-virus"></i></div>
           <div class="stat-content flex-col">
             <p class="stat-title">CONFIRMED</p>
-            <h2 data-type='confirmed' class="stat-value">20,000</h2>
+            <h2  class="stat-value">20,000</h2>
           </div>
         </div>
-        <div class="stat-card flex-row hidden">
-          <div class="icon-wrap"><i class="fas fa-skull-crossbones"></i></i></div>
+        <div data-type="deaths"  class="stat-card flex-row hidden">
+          <div class="icon-wrap flex-row flex-center"><i class="fas fa-skull-crossbones"></i></i></div>
           <div class="stat-content flex-col">
             <p class="stat-title">DEATHS</p>
-            <h2 data-type="deaths" class="stat-value">20,000</h2>
+            <h2  class="stat-value">20,000</h2>
           </div>
         </div>
-        <div class="stat-card flex-row hidden">
-          <div class="icon-wrap"><i class="fas fa-procedures"></i></div>
+        <div data-type="critical" class="stat-card flex-row hidden">
+          <div class="icon-wrap flex-row flex-center"><i class="fas fa-procedures"></i></div>
           <div class="stat-content flex-col">
             <p class="stat-title">CRITICAL</p>
-            <h2 data-type="critical" class="stat-value">20,000</h2>
+            <h2  class="stat-value">20,000</h2>
           </div>
         </div>
-        <div class="stat-card flex-row hidden">
-          <div class="icon-wrap"><i class="fas fa-running"></i></div>
+        <div data-type="recovered" class="stat-card flex-row hidden">
+          <div class="icon-wrap flex-row flex-center"><i class="fas fa-running"></i></div>
           <div class="stat-content flex-col">
             <p class="stat-title">RECOVERED</p>
-            <h2 data-type="recovered" class="stat-value">20,000</h2>
+            <h2  class="stat-value">20,000</h2>
           </div>
         </div>
       </div>

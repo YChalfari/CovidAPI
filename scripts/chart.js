@@ -2,9 +2,9 @@ import { countryData } from "./script.js";
 export const continentGraph = document
   .getElementById("continent-graph")
   .getContext("2d");
-export const countryGraph = document
-  .getElementById("country-graph")
-  .getContext("2d");
+// export const countryGraph = document
+//   .getElementById("country-graph")
+//   .getContext("2d");
 
 export let chartLabels = {
   mainLabel: "",
@@ -29,38 +29,30 @@ let data = {
   labels: labels,
 };
 const config = {
-  type: "pie",
+  type: "bar",
   data: data,
   options: {
     title: {
       display: true,
       text: `Covid-19 Statistics Chart  ${chartLabels.mainLabel}`,
     },
-    plugins: {
-      legend: {
-        maxHeight: 5,
-      },
+
+    legend: {
+      display: false,
     },
   },
 };
 export let mainChart = null;
 export function clearChartData() {
-  chartLabels = {
-    mainLabel: "",
-    xlabels: [],
-    ylabels: {
-      deaths: [],
-      confirmed: [],
-      permillion: [],
-    },
-  };
+  data.labels = [];
+  data.datasets[0].data = [];
 }
 export function updateChart(label, x, y) {
   const dataset = data.datasets[0];
-  chartLabels.ylabels[label].push(y);
-  chartLabels.xlabels.push(x);
   chartLabels.mainLabel = label;
-  dataset.data = chartLabels.ylabels[label];
+  dataset.data.push(y);
+  data.labels.push(x);
+  console.log(dataset);
 }
 export function drawChart() {
   randomColorGenerator(chartLabels.xlabels);
@@ -75,36 +67,36 @@ export function drawChart() {
   );
 }
 
-export const countryChartObj = new Chart(countryGraph, {
-  type: "bar",
-  data: {
-    labels: [],
-    datasets: [
-      {
-        label: "",
-        data: [],
-        backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
-        ],
-        borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-        ],
-        borderWidth: 1,
-      },
-    ],
-  },
-  options: {
-    scales: {
-      y: {
-        beginAtZero: true,
-      },
-    },
-  },
-});
+// export const countryChartObj = new Chart(countryGraph, {
+//   type: "bar",
+//   data: {
+//     labels: [],
+//     datasets: [
+//       {
+//         label: "",
+//         data: [],
+//         backgroundColor: [
+//           "rgba(255, 99, 132, 0.2)",
+//           "rgba(54, 162, 235, 0.2)",
+//           "rgba(255, 206, 86, 0.2)",
+//         ],
+//         borderColor: [
+//           "rgba(255, 99, 132, 1)",
+//           "rgba(54, 162, 235, 1)",
+//           "rgba(255, 206, 86, 1)",
+//         ],
+//         borderWidth: 1,
+//       },
+//     ],
+//   },
+//   options: {
+//     scales: {
+//       y: {
+//         beginAtZero: true,
+//       },
+//     },
+//   },
+// });
 
 function randomColorGenerator(arr) {
   function randomRGB() {

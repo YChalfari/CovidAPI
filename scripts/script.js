@@ -60,8 +60,7 @@ subregionSelect.addEventListener("change", (e) => {
 //Event handler - Countries
 countrySelect.addEventListener("change", (e) => {
   const value = e.currentTarget.value;
-  const stats = getStats(value);
-  printStats(stats);
+  printStats(value);
 });
 async function fetchCountriesInCont(continent) {
   //check if we have already saved this data
@@ -156,6 +155,13 @@ function errorMessage(e) {
   errorDiv.textContent = e;
 }
 
-function getStats(country) {
-  countryData;
+function printStats(country) {
+  const { confirmed, deaths, critical, recovered } = countryData[country].stats;
+  const stats = { confirmed, deaths, critical, recovered };
+  for (const key in stats) {
+    const card = document.querySelector(`[data-type=${key}]`);
+    const stat = document.querySelector(`[data-type=${key}] h2`);
+    card.classList.remove("hidden");
+    stat.textContent = stats[key];
+  }
 }
