@@ -7,7 +7,6 @@
 body {
   font-family: monospace;
   font-size: 10px;
-  height: 100vh;
 }
 .main-container {
   width: 90%;
@@ -44,14 +43,12 @@ option {
   padding: 5px;
 }
 .graph-container {
-  /* position: relative; */
-  /* width: 100%;
-  height: 100%; */
+  position: relative;
+  width: 80%;
 }
 
 .error-container {
-  height: 50px;
-  width: 60%;
+  width: 80%;
   text-align: center;
   color: red;
   font-size: 1rem;

@@ -39,6 +39,7 @@ const config = {
     legend: {
       display: false,
     },
+    mainAspectRatio: false,
   },
 };
 export let mainChart = null;
