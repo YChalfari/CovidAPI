@@ -58,7 +58,7 @@ option {
   min-height: 300px;
 }
 .country-stats {
-  width: 100%;
+  width: 90%;
   justify-content: space-evenly;
 }
 .stat-card {
